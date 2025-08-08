@@ -16,7 +16,7 @@ import {
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { useCartStore } from '@/store/cartStore'
+import useCartStore from '@/store/cartStore'
 
 // 模拟古着孤品数据
 const vintageProducts = [
@@ -389,13 +389,11 @@ export default function VintagePage() {
       price: product.price,
       image: product.images[0],
       category: 'vintage',
-      size: product.size,
-      color: product.origin,
       description: product.description
     }
     
-    // 添加到购物车
-    addItem(cartProduct)
+    // 添加到购物车，使用产品自带的尺码和产地作为颜色
+    addItem(cartProduct, product.size, product.origin)
     
     const productName = language === 'zh' ? product.nameZh : product.name
     toast.success(`${t('toast.addedToCart')} - ${productName}`)
