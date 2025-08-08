@@ -21,20 +21,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gray-950">
-      <section className="relative h-[70vh] bg-gray-900 flex items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/20" />
-        <div className="relative z-10 text-center text-white px-4">
-          <h1 className="text-5xl md:text-7xl font-bold mb-4">ATMAN</h1>
-          <p className="text-xl md:text-2xl mb-8">{t('home.hero.slogan')}</p>
-          <Link
-            href="/shop"
-            className="inline-block bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors"
-          >
-            {t('home.hero.shopNow')}
-          </Link>
-        </div>
-      </section>
-
       <section className="container mx-auto px-4 py-16">
         <h2 className="text-3xl font-bold mb-8 text-white">{t('home.featured')}</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
