@@ -57,7 +57,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   <div key={item.id} className="bg-gray-800 rounded-lg p-3">
                     <div className="flex gap-3">
                       <div className="w-20 h-20 bg-gray-700 rounded-lg overflow-hidden flex-shrink-0">
-                        {item.product.images[0] && (
+                        {item.product.images && item.product.images[0] && (
                           <Image
                             src={item.product.images[0]}
                             alt={item.product.name}

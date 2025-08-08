@@ -387,9 +387,12 @@ export default function VintagePage() {
       id: product.id,
       name: language === 'zh' ? product.nameZh : product.name,
       price: product.price,
-      image: product.images[0],
+      images: product.images, // 使用 images 数组而不是 image 字符串
       category: 'vintage',
-      description: product.description
+      description: product.description,
+      brand: product.origin, // 添加 brand 字段
+      sizes: [product.size], // 添加 sizes 数组
+      colors: [product.origin] // 添加 colors 数组
     }
     
     // 添加到购物车，使用产品自带的尺码和产地作为颜色
