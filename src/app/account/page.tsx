@@ -1089,44 +1089,23 @@ export default function AccountPage() {
                 {language === 'zh' ? '账户操作' : 'Account Actions'}
               </h3>
               
-              <div className="space-y-4">
-                <div className="p-4 bg-gray-800 rounded-lg">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-white font-medium">
-                        {language === 'zh' ? '退出登录' : 'Sign Out'}
-                      </p>
-                      <p className="text-gray-500 text-sm mt-1">
-                        {language === 'zh' ? '退出当前账户' : 'Sign out from your account'}
-                      </p>
-                    </div>
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
-                    >
-                      <LogOut size={18} />
-                      <span>{language === 'zh' ? '退出登录' : 'Sign Out'}</span>
-                    </button>
+              <div className="p-4 bg-gray-800 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-white font-medium">
+                      {language === 'zh' ? '退出登录' : 'Sign Out'}
+                    </p>
+                    <p className="text-gray-500 text-sm mt-1">
+                      {language === 'zh' ? '退出当前账户' : 'Sign out from your account'}
+                    </p>
                   </div>
-                </div>
-                
-                <div className="p-4 bg-gray-800 rounded-lg opacity-50">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-white font-medium">
-                        {language === 'zh' ? '注销账户' : 'Delete Account'}
-                      </p>
-                      <p className="text-gray-500 text-sm mt-1">
-                        {language === 'zh' ? '永久删除账户及所有数据' : 'Permanently delete your account and all data'}
-                      </p>
-                    </div>
-                    <button
-                      disabled
-                      className="px-4 py-2 bg-gray-700 text-gray-400 rounded-lg cursor-not-allowed"
-                    >
-                      {language === 'zh' ? '暂不可用' : 'Not Available'}
-                    </button>
-                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                  >
+                    <LogOut size={18} />
+                    <span>{language === 'zh' ? '退出登录' : 'Sign Out'}</span>
+                  </button>
                 </div>
               </div>
             </div>
