@@ -1,0 +1,25 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+exports.id = "_ssr_src_locales_en_json";
+exports.ids = ["_ssr_src_locales_en_json"];
+exports.modules = {
+
+/***/ "(ssr)/./src/locales/en.json":
+/*!*****************************!*\
+  !*** ./src/locales/en.json ***!
+  \*****************************/
+/***/ ((module) => {
+
+module.exports = /*#__PURE__*/JSON.parse('{"nav":{"home":"Home","newArrivals":"New Arrivals","vintage":"Vintage","tshirt":"T-Shirts","hoodie":"Hoodies","jacket":"Jackets","pants":"Pants","hat":"Hats","sale":"Sale","search":"Search products...","cart":"Cart","account":"Account","wishlist":"Wishlist"},"home":{"hero":{"slogan":"Leading Trends, Defining Street","shopNow":"Shop Now"},"featured":"Featured Products","newArrivals":"New Arrivals","vintage":{"title":"Vintage Worldwide","subtitle":"Global Vintage Collection","description":"Carefully selected rare vintage pieces from around the world, each one is a unique fashion treasure. From Harajuku Tokyo to Brooklyn New York, from Saint Martin Paris to Shoreditch London.","japan":"Japanese Vintage","usa":"American Classic","uk":"British Heritage","france":"French Romance","explore":"Explore Global Pieces","limited":"Limited Edition"}},"product":{"addToCart":"Add to Cart","quickAdd":"Quick Add","outOfStock":"Out of Stock","sold":"Sold","size":"Size","color":"Color","condition":"Condition","era":"Era","origin":"Origin","rarity":"Rarity","price":"Price","originalPrice":"Original Price","description":"Description","stock":"Stock"},"vintage":{"pageTitle":"Vintage Worldwide","pageSubtitle":"Global Vintage Collection","pageDescription":"Each piece is a unique witness to fashion history, carefully selected rare vintage from around the world","globalSourcing":"Global Sourcing","locations":{"tokyo":"Tokyo · Harajuku","newyork":"New York · Brooklyn","london":"London · Shoreditch","paris":"Paris · Saint Martin"},"filters":{"allEras":"All Eras","allOrigins":"All Origins","allTypes":"All Types","sortBy":"Sort By","featured":"Featured","priceLowToHigh":"Price: Low to High","priceHighToLow":"Price: High to Low","rarityFirst":"Rarity First"},"itemsFound":"Found {{count}} pieces","noItems":"No items match your criteria","resetFilters":"Reset Filters","uniqueItem":"Sold Out","features":{"authentic":{"title":"100% Authentic","description":"All vintage pieces are professionally authenticated for authenticity and era accuracy"},"global":{"title":"Global Sourcing","description":"Directly sourced from vintage stores and collectors worldwide"},"unique":{"title":"One of a Kind","description":"Each piece is unique, once sold it\'s gone forever"}}},"cart":{"title":"Shopping Cart","empty":"Your cart is empty","continueShopping":"Continue Shopping","remove":"Remove","quantity":"Quantity","subtotal":"Subtotal","shipping":"Shipping","freeShipping":"Free Shipping","total":"Total","checkout":"Checkout","viewCart":"View Cart"},"checkout":{"title":"Checkout","shippingInfo":"Shipping Information","paymentMethod":"Payment Method","orderSummary":"Order Summary","placeOrder":"Place Order","name":"Name","phone":"Phone","email":"Email","address":"Address","city":"City","province":"Province","postalCode":"Postal Code","wechatPay":"WeChat Pay","alipay":"Alipay","creditCard":"Credit Card","cashOnDelivery":"Cash on Delivery"},"common":{"loading":"Loading...","error":"Error","retry":"Retry","back":"Back","next":"Next","previous":"Previous","close":"Close","save":"Save","cancel":"Cancel","delete":"Delete","edit":"Edit","view":"View","search":"Search","filter":"Filter","sort":"Sort","all":"All","none":"None","yes":"Yes","no":"No","currency":"$"},"toast":{"addedToCart":"Added to cart","removedFromCart":"Removed from cart","addedToWishlist":"Added to wishlist","removedFromWishlist":"Removed from wishlist","itemSold":"This item is sold out","updateSuccess":"Updated successfully","updateFailed":"Update failed","deleteSuccess":"Deleted successfully","deleteFailed":"Delete failed"}}');
+
+/***/ })
+
+};
+;
