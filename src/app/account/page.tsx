@@ -114,7 +114,7 @@ const mockOrders = [
 
 export default function AccountPage() {
   const router = useRouter()
-  const { user, logout, addresses, updateProfile, addAddress, updateAddress, deleteAddress, setDefaultAddress } = useAuth()
+  const { user, logout, addresses, updateProfile, changePassword, addAddress, updateAddress, deleteAddress, setDefaultAddress } = useAuth()
   const { t, language } = useLanguage()
   const [activeTab, setActiveTab] = useState('overview')
   const [selectedOrderStatus, setSelectedOrderStatus] = useState('all')
@@ -129,6 +129,15 @@ export default function AccountPage() {
     phone: '',
     birthDate: '',
     gender: ''
+  })
+
+  // Password form
+  const [showPasswordForm, setShowPasswordForm] = useState(false)
+  const [isChangingPassword, setIsChangingPassword] = useState(false)
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
   })
 
   // Address form
@@ -214,6 +223,39 @@ export default function AccountPage() {
       toast.success(language === 'zh' ? '资料更新成功' : 'Profile updated successfully')
     } catch (error) {
       toast.error(language === 'zh' ? '更新失败' : 'Update failed')
+    }
+  }
+
+  // Password handlers
+  const handlePasswordChange = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      toast.error(language === 'zh' ? '两次输入的密码不一致' : 'Passwords do not match')
+      return
+    }
+
+    if (passwordForm.newPassword.length < 6) {
+      toast.error(language === 'zh' ? '密码至少6个字符' : 'Password must be at least 6 characters')
+      return
+    }
+
+    setIsChangingPassword(true)
+    try {
+      await changePassword(passwordForm.currentPassword, passwordForm.newPassword)
+      setShowPasswordForm(false)
+      setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' })
+    } catch (error: any) {
+      toast.error(error.message || (language === 'zh' ? '密码修改失败' : 'Failed to change password'))
+    } finally {
+      setIsChangingPassword(false)
+    }
+  }
+
+  // Logout handler
+  const handleLogout = () => {
+    if (confirm(language === 'zh' ? '确定要退出登录吗？' : 'Are you sure you want to sign out?')) {
+      logout()
     }
   }
 
@@ -951,25 +993,142 @@ export default function AccountPage() {
 
       case 'settings':
         return (
-          <div className="bg-gray-900 rounded-lg p-8">
-            <h2 className="text-xl font-semibold text-white mb-6">
-              {language === 'zh' ? '账户设置' : 'Account Settings'}
-            </h2>
-            <div className="space-y-4">
-              <button className="w-full flex items-center justify-between p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors">
-                <div className="flex items-center gap-3">
-                  <Shield className="text-gray-400" size={20} />
-                  <div className="text-left">
-                    <p className="text-white">
-                      {language === 'zh' ? '修改密码' : 'Change Password'}
-                    </p>
-                    <p className="text-gray-500 text-sm">
-                      {language === 'zh' ? '定期修改密码以保护账户安全' : 'Change your password regularly for security'}
+          <div className="space-y-6">
+            {/* 修改密码 */}
+            <div className="bg-gray-900 rounded-lg p-8">
+              <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
+                <Shield className="text-gray-400" size={20} />
+                {language === 'zh' ? '修改密码' : 'Change Password'}
+              </h3>
+              
+              {showPasswordForm ? (
+                <form onSubmit={handlePasswordChange} className="space-y-4">
+                  <div>
+                    <label className="block text-gray-400 mb-2">
+                      {language === 'zh' ? '当前密码' : 'Current Password'}
+                    </label>
+                    <input
+                      type="password"
+                      value={passwordForm.currentPassword}
+                      onChange={(e) => setPasswordForm({...passwordForm, currentPassword: e.target.value})}
+                      required
+                      className="w-full px-4 py-2 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-gray-400 mb-2">
+                      {language === 'zh' ? '新密码' : 'New Password'}
+                    </label>
+                    <input
+                      type="password"
+                      value={passwordForm.newPassword}
+                      onChange={(e) => setPasswordForm({...passwordForm, newPassword: e.target.value})}
+                      required
+                      minLength={6}
+                      className="w-full px-4 py-2 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+                    />
+                    <p className="text-gray-500 text-xs mt-1">
+                      {language === 'zh' ? '密码至少6个字符' : 'At least 6 characters'}
                     </p>
                   </div>
+                  
+                  <div>
+                    <label className="block text-gray-400 mb-2">
+                      {language === 'zh' ? '确认新密码' : 'Confirm New Password'}
+                    </label>
+                    <input
+                      type="password"
+                      value={passwordForm.confirmPassword}
+                      onChange={(e) => setPasswordForm({...passwordForm, confirmPassword: e.target.value})}
+                      required
+                      className="w-full px-4 py-2 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+                    />
+                  </div>
+                  
+                  <div className="flex justify-end gap-3 pt-4">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowPasswordForm(false)
+                        setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' })
+                      }}
+                      className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                    >
+                      {language === 'zh' ? '取消' : 'Cancel'}
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={isChangingPassword}
+                      className="px-4 py-2 bg-white text-black rounded-lg font-semibold hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isChangingPassword 
+                        ? (language === 'zh' ? '修改中...' : 'Changing...')
+                        : (language === 'zh' ? '确认修改' : 'Confirm')}
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                <div>
+                  <p className="text-gray-400 mb-4">
+                    {language === 'zh' ? '定期修改密码以保护账户安全' : 'Change your password regularly for security'}
+                  </p>
+                  <button
+                    onClick={() => setShowPasswordForm(true)}
+                    className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                  >
+                    {language === 'zh' ? '修改密码' : 'Change Password'}
+                  </button>
                 </div>
-                <ChevronRight className="text-gray-400" size={20} />
-              </button>
+              )}
+            </div>
+
+            {/* 账户操作 */}
+            <div className="bg-gray-900 rounded-lg p-8">
+              <h3 className="text-lg font-semibold text-white mb-6">
+                {language === 'zh' ? '账户操作' : 'Account Actions'}
+              </h3>
+              
+              <div className="space-y-4">
+                <div className="p-4 bg-gray-800 rounded-lg">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-white font-medium">
+                        {language === 'zh' ? '退出登录' : 'Sign Out'}
+                      </p>
+                      <p className="text-gray-500 text-sm mt-1">
+                        {language === 'zh' ? '退出当前账户' : 'Sign out from your account'}
+                      </p>
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                    >
+                      <LogOut size={18} />
+                      <span>{language === 'zh' ? '退出登录' : 'Sign Out'}</span>
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="p-4 bg-gray-800 rounded-lg opacity-50">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-white font-medium">
+                        {language === 'zh' ? '注销账户' : 'Delete Account'}
+                      </p>
+                      <p className="text-gray-500 text-sm mt-1">
+                        {language === 'zh' ? '永久删除账户及所有数据' : 'Permanently delete your account and all data'}
+                      </p>
+                    </div>
+                    <button
+                      disabled
+                      className="px-4 py-2 bg-gray-700 text-gray-400 rounded-lg cursor-not-allowed"
+                    >
+                      {language === 'zh' ? '暂不可用' : 'Not Available'}
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )

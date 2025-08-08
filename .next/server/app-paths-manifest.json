@@ -1,9 +1,1 @@
-{
-  "/_not-found/page": "app/_not-found/page.js",
-  "/page": "app/page.js",
-  "/checkout/page": "app/checkout/page.js",
-  "/login/page": "app/login/page.js",
-  "/account/addresses/page": "app/account/addresses/page.js",
-  "/vintage/page": "app/vintage/page.js",
-  "/account/page": "app/account/page.js"
-}
+{}

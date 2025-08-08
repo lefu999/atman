@@ -32,6 +32,7 @@ interface AuthContextType {
   register: (email: string, password: string, name: string) => Promise<void>
   logout: () => void
   updateProfile: (data: Partial<User>) => Promise<void>
+  changePassword: (currentPassword: string, newPassword: string) => Promise<void>
   addresses: Address[]
   addAddress: (address: Omit<Address, 'id' | 'userId'>) => Promise<void>
   updateAddress: (id: string, address: Partial<Address>) => Promise<void>
@@ -171,6 +172,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     toast.success('个人资料已更新')
   }
 
+  const changePassword = async (currentPassword: string, newPassword: string) => {
+    if (!user) {
+      throw new Error('请先登录')
+    }
+
+    const mockUser = mockUsers[user.email]
+    
+    if (!mockUser || mockUser.password !== currentPassword) {
+      throw new Error('当前密码错误')
+    }
+
+    // 更新密码
+    mockUsers[user.email].password = newPassword
+    
+    toast.success('密码修改成功')
+  }
+
   const addAddress = async (address: Omit<Address, 'id' | 'userId'>) => {
     if (!user) return
 
@@ -248,6 +266,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         register,
         logout,
         updateProfile,
+        changePassword,
         addresses,
         addAddress,
         updateAddress,
