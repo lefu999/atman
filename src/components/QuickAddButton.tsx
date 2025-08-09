@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ShoppingBag, Plus } from 'lucide-react'
 import useCartStore from '../store/cartStore'
 import { Product } from '../types'
 import toast from 'react-hot-toast'
+import { useLanguage } from '../contexts/LanguageContext'
 
 interface QuickAddButtonProps {
   product: Product
@@ -15,18 +16,26 @@ export default function QuickAddButton({ product }: QuickAddButtonProps) {
   const [selectedSize, setSelectedSize] = useState('')
   const [selectedColor, setSelectedColor] = useState('')
   const addItem = useCartStore((state) => state.addItem)
+  const { t, language } = useLanguage()
+
+  // 设置默认值
+  useEffect(() => {
+    if (product.sizes && product.sizes.length > 0 && !selectedSize) {
+      setSelectedSize(product.sizes[0])
+    }
+    if (product.colors && product.colors.length > 0 && !selectedColor) {
+      setSelectedColor(product.colors[0])
+    }
+  }, [product, selectedSize, selectedColor])
 
   const handleQuickAdd = () => {
-    if (!selectedSize || !selectedColor) {
-      setShowOptions(true)
-      return
-    }
+    // 如果没有尺码或颜色选项，直接使用默认值
+    const size = selectedSize || (product.sizes && product.sizes[0]) || 'One Size'
+    const color = selectedColor || (product.colors && product.colors[0]) || 'Default'
 
-    addItem(product, selectedSize, selectedColor, 1)
-    toast.success(`${product.name} added to cart!`)
+    addItem(product, size, color, 1)
+    toast.success(`${product.name} ${language === 'zh' ? '已添加到购物车' : 'added to cart'}!`)
     setShowOptions(false)
-    setSelectedSize('')
-    setSelectedColor('')
   }
 
   return (
@@ -77,7 +86,7 @@ export default function QuickAddButton({ product }: QuickAddButtonProps) {
         className="w-full bg-white text-black py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
       >
         <Plus size={16} />
-        Quick Add
+        {language === 'zh' ? '快速添加' : 'Quick Add'}
       </button>
     </div>
   )
