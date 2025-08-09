@@ -123,12 +123,9 @@ export default function HomePage() {
           </div>
           
           {/* 副标题 */}
-          <div className="mt-4 space-y-2">
+          <div className="mt-4">
             <p className="text-lg md:text-xl text-gray-400 tracking-widest uppercase animate-slide-up" style={{ animationDelay: '0.3s' }}>
-              {language === 'zh' ? '引领潮流' : 'Lead the Trend'}
-            </p>
-            <p className="text-lg md:text-xl text-gray-400 tracking-widest uppercase animate-slide-up" style={{ animationDelay: '0.5s' }}>
-              {language === 'zh' ? '定义街头' : 'Define the Street'}
+              Everyone got an atman
             </p>
           </div>
         </div>
