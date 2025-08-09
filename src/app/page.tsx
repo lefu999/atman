@@ -66,64 +66,61 @@ export default function HomePage() {
       }`}>
         {/* Logo文字 */}
         <div className="mb-8 perspective-1000">
-          <h1 className="text-7xl md:text-9xl font-bold tracking-wider transform-3d relative"
-              style={{ 
-                fontFamily: 'Times New Roman, Times, serif',
-                fontWeight: 'bold',
-                transformStyle: 'preserve-3d',
-                transform: 'rotateX(15deg) rotateY(-10deg)',
-                background: 'linear-gradient(135deg, #ffffff 0%, #e0e0e0 50%, #ffffff 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                textShadow: 'none',
-                letterSpacing: '0.1em'
-              }}>
-            <span style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              transform: 'translateZ(-1px)',
-              WebkitTextFillColor: 'rgba(255,255,255,0.1)',
-              filter: 'blur(1px)'
-            }}>ATMAN</span>
-            <span style={{
-              position: 'absolute',
-              top: '2px',
-              left: '2px',
-              transform: 'translateZ(-2px)',
-              WebkitTextFillColor: 'rgba(0,0,0,0.2)',
-              filter: 'blur(2px)'
-            }}>ATMAN</span>
-            <span style={{
-              position: 'absolute',
-              top: '4px',
-              left: '4px',
-              transform: 'translateZ(-4px)',
-              WebkitTextFillColor: 'rgba(0,0,0,0.1)',
-              filter: 'blur(3px)'
-            }}>ATMAN</span>
-            <span style={{
-              position: 'relative',
-              transform: 'translateZ(20px)',
-              display: 'inline-block',
-              textShadow: `
-                0 1px 0 rgba(255,255,255,0.9),
-                0 2px 0 rgba(255,255,255,0.8),
-                0 3px 0 rgba(255,255,255,0.7),
-                0 4px 0 rgba(255,255,255,0.6),
-                0 5px 0 rgba(255,255,255,0.5),
-                0 6px 1px rgba(0,0,0,.1),
-                0 0 5px rgba(255,255,255,.3),
-                0 1px 3px rgba(0,0,0,.3),
-                0 3px 5px rgba(0,0,0,.2),
-                0 5px 10px rgba(0,0,0,.25),
-                0 10px 10px rgba(0,0,0,.2),
-                0 20px 20px rgba(0,0,0,.15),
-                0 30px 40px rgba(0,0,0,.1)
-              `
-            }}>ATMAN</span>
-          </h1>
+          <div className="text-7xl md:text-9xl font-bold transform-3d relative inline-block"
+               style={{ 
+                 fontFamily: 'Times, "Times New Roman", "Georgia", "Baskerville", "Didot", "Bodoni MT", serif',
+                 fontWeight: '900',
+                 fontStyle: 'normal',
+                 transformStyle: 'preserve-3d',
+                 letterSpacing: '0.12em',
+                 textTransform: 'uppercase'
+               }}>
+            {/* 整体3D文字效果 */}
+            <div className="relative" style={{ transformStyle: 'preserve-3d' }}>
+              {/* 立体层次 - 创建实心厚度 */}
+              {[...Array(15)].map((_, i) => (
+                <span
+                  key={i}
+                  className="absolute"
+                  style={{
+                    transform: `translateZ(-${i * 4}px) translateX(${i * 1.5}px) translateY(${i * 1.5}px)`,
+                    color: i < 3 ? '#f0f0f0' : i < 6 ? '#d0d0d0' : i < 9 ? '#b0b0b0' : i < 12 ? '#909090' : '#707070',
+                    WebkitTextStroke: '3px rgba(200,200,200,1)',
+                    paintOrder: 'stroke fill',
+                    fontWeight: '900',
+                    opacity: 1
+                  }}
+                >
+                  ATMAN
+                </span>
+              ))}
+              
+              {/* 主文字层 - 更实的白色 */}
+              <span
+                className="relative"
+                style={{
+                  color: '#ffffff',
+                  transform: 'translateZ(30px)',
+                  textShadow: `
+                    0 0 10px rgba(255,255,255,0.9),
+                    0 0 20px rgba(255,255,255,0.5),
+                    1px 1px 0 #ffffff,
+                    2px 2px 0 #f8f8f8,
+                    3px 3px 0 #f0f0f0,
+                    4px 4px 0 #e8e8e8,
+                    5px 5px 0 #e0e0e0,
+                    6px 6px 8px rgba(0,0,0,0.3)
+                  `,
+                  WebkitTextStroke: '4px #ffffff',
+                  paintOrder: 'stroke fill',
+                  fontWeight: '900',
+                  zIndex: 10
+                }}
+              >
+                ATMAN
+              </span>
+            </div>
+          </div>
           
           {/* 副标题 */}
           <div className="mt-4 space-y-2">
@@ -183,25 +180,65 @@ export default function HomePage() {
       {/* 自定义CSS动画 */}
       <style jsx>{`
         .perspective-1000 {
-          perspective: 1000px;
+          perspective: 2000px;
+          perspective-origin: 50% 50%;
         }
         
         .transform-3d {
-          animation: rotate3d 8s ease-in-out infinite;
+          animation: horizontalThenVertical 16s linear infinite;
+          transform-origin: center center;
         }
         
-        @keyframes rotate3d {
-          0%, 100% { 
-            transform: rotateX(15deg) rotateY(-10deg) translateZ(0);
+        @keyframes horizontalThenVertical {
+          /* 第一阶段：水平旋转一圈 */
+          0% { 
+            transform: rotateY(0deg) translateZ(30px);
+          }
+          12.5% { 
+            transform: rotateY(90deg) translateZ(50px);
           }
           25% { 
-            transform: rotateX(10deg) rotateY(-5deg) translateZ(20px);
+            transform: rotateY(180deg) translateZ(30px);
           }
+          37.5% { 
+            transform: rotateY(270deg) translateZ(50px);
+          }
+          48% { 
+            transform: rotateY(360deg) translateZ(30px);
+          }
+          
+          /* 短暂停顿 */
           50% { 
-            transform: rotateX(15deg) rotateY(5deg) translateZ(0);
+            transform: rotateY(360deg) translateZ(30px);
+          }
+          52% { 
+            transform: rotateY(360deg) translateZ(30px);
+          }
+          
+          /* 第二阶段：垂直旋转一圈 */
+          62.5% { 
+            transform: rotateY(360deg) rotateX(90deg) translateZ(50px);
           }
           75% { 
-            transform: rotateX(20deg) rotateY(-2deg) translateZ(10px);
+            transform: rotateY(360deg) rotateX(180deg) translateZ(30px);
+          }
+          87.5% { 
+            transform: rotateY(360deg) rotateX(270deg) translateZ(50px);
+          }
+          98% { 
+            transform: rotateY(360deg) rotateX(360deg) translateZ(30px);
+          }
+          100% { 
+            transform: rotateY(360deg) rotateX(360deg) translateZ(30px);
+          }
+        }
+        
+        @keyframes letterFloat {
+          0%, 100% {
+            transform: translateZ(50px) rotateY(0deg) translateY(0px);
+          }
+          50% {
+            transform: translateZ(70px) rotateY(5deg) translateY(-5px);
           }
         }
         
