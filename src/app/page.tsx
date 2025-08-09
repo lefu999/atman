@@ -65,9 +65,64 @@ export default function HomePage() {
         isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
       }`}>
         {/* Logo文字 */}
-        <div className="mb-8">
-          <h1 className="text-7xl md:text-9xl font-bold text-white tracking-wider animate-glow">
-            ATMAN
+        <div className="mb-8 perspective-1000">
+          <h1 className="text-7xl md:text-9xl font-bold tracking-wider transform-3d relative"
+              style={{ 
+                fontFamily: 'Times New Roman, Times, serif',
+                fontWeight: 'bold',
+                transformStyle: 'preserve-3d',
+                transform: 'rotateX(15deg) rotateY(-10deg)',
+                background: 'linear-gradient(135deg, #ffffff 0%, #e0e0e0 50%, #ffffff 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                textShadow: 'none',
+                letterSpacing: '0.1em'
+              }}>
+            <span style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              transform: 'translateZ(-1px)',
+              WebkitTextFillColor: 'rgba(255,255,255,0.1)',
+              filter: 'blur(1px)'
+            }}>ATMAN</span>
+            <span style={{
+              position: 'absolute',
+              top: '2px',
+              left: '2px',
+              transform: 'translateZ(-2px)',
+              WebkitTextFillColor: 'rgba(0,0,0,0.2)',
+              filter: 'blur(2px)'
+            }}>ATMAN</span>
+            <span style={{
+              position: 'absolute',
+              top: '4px',
+              left: '4px',
+              transform: 'translateZ(-4px)',
+              WebkitTextFillColor: 'rgba(0,0,0,0.1)',
+              filter: 'blur(3px)'
+            }}>ATMAN</span>
+            <span style={{
+              position: 'relative',
+              transform: 'translateZ(20px)',
+              display: 'inline-block',
+              textShadow: `
+                0 1px 0 rgba(255,255,255,0.9),
+                0 2px 0 rgba(255,255,255,0.8),
+                0 3px 0 rgba(255,255,255,0.7),
+                0 4px 0 rgba(255,255,255,0.6),
+                0 5px 0 rgba(255,255,255,0.5),
+                0 6px 1px rgba(0,0,0,.1),
+                0 0 5px rgba(255,255,255,.3),
+                0 1px 3px rgba(0,0,0,.3),
+                0 3px 5px rgba(0,0,0,.2),
+                0 5px 10px rgba(0,0,0,.25),
+                0 10px 10px rgba(0,0,0,.2),
+                0 20px 20px rgba(0,0,0,.15),
+                0 30px 40px rgba(0,0,0,.1)
+              `
+            }}>ATMAN</span>
           </h1>
           
           {/* 副标题 */}
@@ -127,18 +182,35 @@ export default function HomePage() {
 
       {/* 自定义CSS动画 */}
       <style jsx>{`
-        @keyframes glow {
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+        
+        .transform-3d {
+          animation: rotate3d 8s ease-in-out infinite;
+        }
+        
+        @keyframes rotate3d {
           0%, 100% { 
-            text-shadow: 
-              0 0 20px rgba(255,255,255,0.3),
-              0 0 40px rgba(255,255,255,0.2),
-              0 0 60px rgba(255,255,255,0.1);
+            transform: rotateX(15deg) rotateY(-10deg) translateZ(0);
+          }
+          25% { 
+            transform: rotateX(10deg) rotateY(-5deg) translateZ(20px);
           }
           50% { 
-            text-shadow: 
-              0 0 30px rgba(255,255,255,0.4),
-              0 0 50px rgba(255,255,255,0.3),
-              0 0 70px rgba(255,255,255,0.2);
+            transform: rotateX(15deg) rotateY(5deg) translateZ(0);
+          }
+          75% { 
+            transform: rotateX(20deg) rotateY(-2deg) translateZ(10px);
+          }
+        }
+        
+        @keyframes glow {
+          0%, 100% { 
+            filter: brightness(1) contrast(1);
+          }
+          50% { 
+            filter: brightness(1.1) contrast(1.05);
           }
         }
 
